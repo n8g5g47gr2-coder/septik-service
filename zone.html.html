@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Откачка септика — Зеленоград, Солнечногорск, Сходня, Лобня | Зона обслуживания</title>
+  <meta name="description" content="Районы выезда ассенизаторской машины: Зеленоград, Сходня, Фирсановка, Андреевка, Поварово, Менделеево, Солнечногорск, Лобня, Химки. Без наценки за выезд в базовой зоне." />
+  <style>
+    :root {
+      --primary: #0056b3;
+      --dark: #1a1a1a;
+      --gray: #333;
+      --light: #f5f5f5;
+      --white: #ffffff;
+    }
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; color: var(--dark); background: var(--white); }
+    header { background: var(--primary); color: var(--white); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
+    .logo { font-weight: bold; font-size: 1.3rem; }
+    nav a { color: var(--white); text-decoration: none; margin-left: 1.5rem; }
+    nav a:hover { text-decoration: underline; }
+    .phone { font-weight: bold; }
+    main { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+        h1 { color: var(--primary); }
+
+
+    /* Акцентный блок про цену */
+    .note-price {
+      background: #fff8e1;
+      padding: 1.2rem;
+      border-radius: 8px;
+      margin: 2rem 0;
+      color: #5d4037;
+      line-height: 1.5;
+      border-left: 5px solid var(--primary);
+    }
+
+    /* Карта */
+    .map-wrapper {
+      width: 100%;
+      aspect-ratio: 16/9;
+      margin: 2rem 0;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .map-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* Сетка карточек */
+    .zones-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .zone-card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 1.5rem;
+      background: var(--white);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .zone-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; }
+    .zone-badge {
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      font-weight: bold;
+      color: white;
+      min-width: 90px;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    /* Цвета бейджей */
+    .badge-green { background: #2e7d32; }   /* без наценок */
+    .badge-orange { background: #f57c00; } /* с наценкой */
+    .badge-red { background: #d32f2f; }    /* по договорённости */
+
+    ul { list-style-position: inside; line-height: 1.6; margin: 0; padding-left: 16px; }
+
+    .btn {
+      display: inline-block;
+      background: var(--primary);
+      color: var(--white);
+      padding: 0.7rem 1.4rem;
+      text-decoration: none;
+      border-radius: 6px;
+      margin-top: 1rem;
+    }
+    .btn:hover { background: #004494; }
+
+    footer { background: var(--dark); color: var(--white); padding: 2rem 2rem; margin-top: 4rem; }
+
+        .burger { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; margin-left: 1rem; }
+    .burger span { display: block; width: 26px; height: 3px; background: var(--white); margin: 5px 0; border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+
+    @media (max-width: 600px) {
+      header { padding: 1rem; }
+      .burger { display: block; }
+      .phone { font-size: 0.9rem; }
+      nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--primary);
+        flex-direction: column;
+        padding: 1rem 2rem;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+      }
+      nav.open { display: flex; }
+      nav a { margin: 0.6rem 0; font-size: 1.1rem; }
+      .burger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+      .burger.active span:nth-child(2) { opacity: 0; }
+      .burger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    }
+/* Плавающая кнопка связи */
+    .float-contact { position: fixed; bottom: 20px; right: 20px; z-index: 999; }
+    .fc-btn {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: var(--primary); border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      margin-left: auto; transition: transform 0.2s;
+    }
+    .fc-btn:hover { transform: scale(1.08); }
+    .fc-btn svg { width: 30px; height: 30px; fill: #fff; }
+    .fc-menu {
+      display: none; flex-direction: column; gap: 8px;
+      margin-bottom: 12px; align-items: flex-end;
+    }
+    .float-contact.open .fc-menu { display: flex; }
+    .fc-item {
+      display: flex; align-items: center; gap: 8px;
+      color: #fff; text-decoration: none; font-weight: bold;
+      padding: 0.6rem 1rem; border-radius: 24px; font-size: 0.95rem;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    }
+    .fc-wa { background: #25D366; }
+    .fc-tg { background: #0088cc; }
+    .fc-call { background: var(--primary); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Септик-Сервис</div>
+    <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+        <nav id="menu">
+      <a href="index.html">Главная</a>
+      <a href="services.html">Услуги</a>
+      <a href="zone.html">Зона обслуживания</a>
+      <a href="about.html">О компании</a>
+      <a href="contacts.html">Контакты</a>
+    </nav>
+    <a href="tel:+79775387636" class="phone">8 (977) 538-76-36</a>
+  </header>
+
+  <main>
+    <h1>Зона обслуживания</h1>
+
+    <!-- Акцент про цену -->
+    <div class="note-price">
+      <strong>Важно про стоимость:</strong><br>
+      Цена зависит не от расстояния, а от условий на месте: длины шланга и сложности подъезда. Минимальная цена выезда — от 4 500 ₽. Срочный/ночной выезд — по согласованию, ставка выше.
+    </div>
+
+    <p style="text-align:center; color:#555;">Работаем в Зеленограде, Солнечногорском районе и ближайших городах. Ниже — карта и зоны для ориентира.</p>
+
+    <!-- Карта: сюда вставить свой iframe из Яндекс Конструктора -->
+    <div class="map-wrapper">
+      <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A0f308b23a633c14a9710604a2058e882742ee49edf8efccf2293c6b8011eaade&amp;source=constructor" width="400" height="400" frameborder="0"></iframe>
+    </div>
+
+    <!-- Списки зон -->
+    <div class="zones-grid">
+      <!-- Зона 1: без наценок (только шланг/подъезд) -->
+      <article class="zone-card">
+        <div class="zone-header">
+          <span class="zone-badge badge-green">Без наценок</span>
+          <h2>Зеленоград, Сходня, Фирсановка</h2>
+        </div>
+        <p>Цена формируется только по длине шланга и условиям подъезда. Дополнительной платы за выезд не берём.</p>
+        <ul>
+          <li>Зеленоград</li>
+          <li>Сходня</li>
+          <li>Фирсановка</li>
+        </ul>
+      </article>
+
+      <!-- Зона 2: с небольшой наценкой за выезд -->
+      <article class="zone-card">
+        <div class="zone-header">
+          <span class="zone-badge badge-orange">С наценкой</span>
+          <h2>Окружающие населённые пункты</h2>
+        </div>
+        <p>Возможен небольшой расчёт за выезд. Итоговая стоимость — по условиям на месте (длина шланга, сложность подъезда).</p>
+        <ul>
+          <li>Андреевка</li>
+          <li>Поварово</li>
+          <li>Менделеево</li>
+          <li>Ржавки</li>
+          <li>Чашниково</li>
+          <li>Кривцово</li>
+          <li>Ложки</li>
+        </ul>
+      </article>
+
+      <!-- Зона 3: по договорённости -->
+      <article class="zone-card">
+        <div class="zone-header">
+          <span class="zone-badge badge-red">По договорённости</span>
+          <h2>Солнечногорск, Лобня, Брехово, Химки (со Старбеево)</h2>
+        </div>
+        <p>Стоимость обсуждается индивидуально при заказе. Зависит от длины шланга, условий подъезда и объёма работ.</p>
+        <ul>
+          <li>Солнечногорск</li>
+          <li>Лобня</li>
+          <li>Брехово</li>
+          <li>Химки (включая Старбеево)</li>
+        </ul>
+      </article>
+    </div>
+
+    <p style="margin-top:2rem; text-align:center;">
+      Не нашли свой населённый пункт? <a href="contacts.html" class="btn">Позвоните — уточним возможность и стоимость</a>
+    </p>
+  </main>
+
+  <footer>
+    <p>Септик-Сервис — откачка и вывоз ЖБО. ИП Тумасов Н. О., ИНН 622602185150</p>
+    <p>График: 24/7 • Телефон: 8 (977) 538-76-36</p>
+  </footer>
+<script>
+    const burger = document.getElementById('burger');
+    const menu = document.getElementById('menu');
+    burger.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      burger.classList.toggle('active', open);
+      burger.setAttribute('aria-expanded', open);
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      menu.classList.remove('open');
+      burger.classList.remove('active');
+      burger.setAttribute('aria-expanded', 'false');
+    }));
+  </script>
+<div class="float-contact" id="floatContact">
+    <div class="fc-menu">
+      <a href="https://wa.me/79775387636?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%9D%D1%83%D0%B6%D0%BD%D0%B0%20%D0%BE%D1%82%D0%BA%D0%B0%D1%87%D0%BA%D0%B0%20%D0%96%D0%91%D0%9E." class="fc-item fc-wa" target="_blank">WhatsApp</a>
+      <a href="https://t.me/nkttmsv" class="fc-item fc-tg" target="_blank">Telegram</a>
+      <a href="tel:+79775387636" class="fc-item fc-call">Позвонить</a>
+    </div>
+    <button class="fc-btn" onclick="document.getElementById('floatContact').classList.toggle('open');" aria-label="Связаться с нами">
+      <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>
+    </button>
+  </div>
+</body>
+</html>
